@@ -29,6 +29,7 @@ function getCursor(event) {
 let loc_count = 0
 let pos = []
 
+document.getElementById('crossHair').style.display = 'none'
 
 function getLocation(a){
     
@@ -50,21 +51,33 @@ function getLocation(a){
         pos.push({'id' : loc_count++ , 'x' : `${a.x}`,  'y' : `${a.y}`})
         console.log(pos[pos.length-1])
         
+
         isNewSpot = false;
         document.getElementById('toolbar').innerHTML = ''
         document.querySelector('#map').style.cursor = 'default'
+        document.getElementById('crossHair').style.display = 'none'
+
     } 
 }
 function addSpot(){
  
     if (isNewSpot == false) {
+
         document.querySelector('#map').style.cursor = 'crosshair'
         document.getElementById('toolbar').innerHTML = 
-                    '<div class="text-success fw-bold text-uppercase bg-success-subtle border border-success-subtle mt-3 p-1 px-2 fs-4 rounded-pill">Add</div>'
-        return isNewSpot = true;
+                    '<div class="text-dark fw-bold text-uppercase bg-warning border border-dark border-2 mt-3 p-1 py-0 fs-2">Add</div>'
+        isNewSpot = true;
+        document.getElementById('crossHair').style.display = 'block'
+
+        return isNewSpot
     } else {
+
         document.getElementById('toolbar').innerHTML = ''
-        return isNewSpot = false;
+        document.querySelector('#map').style.cursor = 'default'
+        document.getElementById('crossHair').style.display = 'none'
+        isNewSpot = false;
+
+        return isNewSpot  
 
     }
    
@@ -72,8 +85,7 @@ function addSpot(){
 
 function viewSpot(str){
     document.getElementById('toolbar').innerHTML = 
-    `<div class="text-primary fw-bold text-uppercase bg-primary-subtle border border-primary-subtle mt-3 p-1 px-2 fs-6 rounded-pill">Viewing Inspecto ${str}</div>`
-
+    `<div class="text-primary fw-bold text-uppercase bg-primary-subtle border border-primary-subtle mt-3 p-1 px-2 fs-6">Viewing Inspecto <spac class="bg-dark text-white p-2 py-0 rounded-circle">${str}</span></div>`
 }
 
 
