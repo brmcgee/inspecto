@@ -8,16 +8,13 @@ let crossHairOffset = crossHairWidth / 6
 
 var mapHeight = mapElem.offsetHeight;
 var mapWidth = mapElem.offsetWidth;
-var mapHalf = mapWidth / 2;
-var mapXOffset = mapHalf - (crossHairWidth - crossHairOffset)
-var mapYOffset = (crossHairWidth - crossHairOffset)
-
 var bodyWidth = document.body.offsetWidth;
 
 
-
+let isNewSpot = false;
 
 function getCursor(event) {
+    
     let x = event.clientX;
     let y = event.clientY;
     let _position = `X: ${x}<br>Y: ${y}`;
@@ -33,17 +30,50 @@ let loc_count = 0
 let pos = []
 
 
-function getLocation(a){ 
-    let xOff = $(window).width() - 800;
-
-    let html = `<div class="spot" style=" left: ${a.x - (bodyWidth / a.x) - ( xOff / 2 > 0 ? xOff / 2 : 0 ) }px; 
-                                          top:  ${a.y}px;">${loc_count}</div>`
-
-    document.getElementById('map').innerHTML += html;
+function getLocation(a){
     
-    pos.push({'id' : loc_count++ , 'x' : `${a.x}`,  'y' : `${a.y}`})
-    console.log(pos[pos.length-1])
+    if (isNewSpot){
+
+        let xOff = $(window).width() - 800;
+
+        let html = `
+                        <div class="spot" 
+                             id="spot${loc_count}"
+                             onclick="viewSpot('${loc_count}')"
+                             style=" left: ${a.x - (bodyWidth / a.x) - ( xOff / 2 > 0 ? xOff / 2 : 0 ) }px; 
+                                     top:  ${a.y}px;">${loc_count}
+                        </div>
+                    `
+
+        document.getElementById('map').innerHTML += html;
+        
+        pos.push({'id' : loc_count++ , 'x' : `${a.x}`,  'y' : `${a.y}`})
+        console.log(pos[pos.length-1])
+        
+        isNewSpot = false;
+        document.getElementById('toolbar').innerHTML = ''
+        document.querySelector('#map').style.cursor = 'default'
+    } 
+}
+function addSpot(){
  
+    if (isNewSpot == false) {
+        document.querySelector('#map').style.cursor = 'crosshair'
+        document.getElementById('toolbar').innerHTML = 
+                    '<div class="text-success fw-bold text-uppercase bg-success-subtle border border-success-subtle mt-3 p-1 px-2 fs-4 rounded-pill">Add</div>'
+        return isNewSpot = true;
+    } else {
+        document.getElementById('toolbar').innerHTML = ''
+        return isNewSpot = false;
+
+    }
+   
+}
+
+function viewSpot(str){
+    document.getElementById('toolbar').innerHTML = 
+    `<div class="text-primary fw-bold text-uppercase bg-primary-subtle border border-primary-subtle mt-3 p-1 px-2 fs-6 rounded-pill">Viewing Inspecto ${str}</div>`
+
 }
 
 
