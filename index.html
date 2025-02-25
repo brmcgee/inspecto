@@ -24,14 +24,19 @@
 <body>
 
     <div id="cont" class="wrapper">
-        <button onclick="addSpot()" class="position-fixed btn btn-sm btn-success m-2 bg-main" style="z-index: 10;">Add Card</button>
-        <div id="toolbar" class="position-fixed" style="z-index: 104;right:10%;bottom:10%;"></div>
+        <div class="toolbar-menu d-flex justify-content-end" style="max-width: 800px;">
+            <button onclick="addSpot()" class="position-fixed btn btn-sm btn-dark m-2" style="z-index: 10;">
+                <img src="public/assets/icons/add-black.png" alt="" width="20" class="bg-main p-1 rounded-circle">
+                Add Card</button>
+            <div id="toolbar" class="position-absolute" style="z-index: 104;left:10px;top:-6px;"></div>
+        </div>
+
 
        <!-- <div id="map"  class="map-img"> -->
+        
         <div id="map"  class="map-img"  onmousemove="getCursor(event)" onclick="getLocation(getCursor(event))" >
 
-        
-        <div id="crossHair"></div>
+           <div id="crossHair"></div>
 
       </div>
     </div>

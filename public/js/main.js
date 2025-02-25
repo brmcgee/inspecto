@@ -38,12 +38,14 @@ function getLocation(a){
         let xOff = $(window).width() - 800;
 
         let html = `
-                        <div class="spot" 
+                        <div class="spot plus" 
                              id="spot${loc_count}"
                              onclick="viewSpot('${loc_count}')"
-                             style=" left: ${a.x - (bodyWidth / a.x) - ( xOff / 2 > 0 ? xOff / 2 : 0 ) }px; 
-                                     top:  ${a.y}px;">${loc_count}
+                             style=" left: ${a.x}px; 
+                                     top:  ${a.y}px;">
                         </div>
+                        <p class="spot" style=" left: ${a.x + 12}px; 
+                            top:  ${a.y + 8}px; font-size:12px; font-family:courier;">${loc_count}</p>
                     `
 
         document.getElementById('map').innerHTML += html;
@@ -60,12 +62,12 @@ function getLocation(a){
     } 
 }
 function addSpot(){
- 
+    // document.getElementById('toolbar').innerHTML = ''
     if (isNewSpot == false) {
 
         document.querySelector('#map').style.cursor = 'crosshair'
         document.getElementById('toolbar').innerHTML = 
-                    '<div class="text-dark fw-bold text-uppercase bg-warning border border-dark border-2 mt-3 p-1 py-0 fs-2">Add</div>'
+        `<div class="text-success fw-bold text-uppercase bg-success-subtle border border-success-subtle mt-3 p-1 px-2 fs-6">Add</div>`
         isNewSpot = true;
         document.getElementById('crossHair').style.display = 'block'
 
@@ -85,7 +87,7 @@ function addSpot(){
 
 function viewSpot(str){
     document.getElementById('toolbar').innerHTML = 
-    `<div class="text-primary fw-bold text-uppercase bg-primary-subtle border border-primary-subtle mt-3 p-1 px-2 fs-6">Viewing Inspecto <spac class="bg-dark text-white p-2 py-0 rounded-circle">${str}</span></div>`
+    `<div class="text-dark fw-bold text-uppercase bg-dark-subtle border border-dark-subtle mt-3 p-1 p-1 fs-6">Viewing Inspecto <spac class="badge bg-dark text-white p-2 py-1 rounded-2">${str}</span></div>`
 }
 
 
